@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu
+
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:checkableBehavior="single">
+
+        <item
+            android:id="@+id/stop_alarm"
+            android:icon="@drawable/plant_container"
+            android:title="Stop Alarm"></item>
+
+        <item
+            android:id="@+id/add_threshold"
+            android:icon="@drawable/plant_container"
+            android:title="Add Alarm Level"></item>
+    </group>
+
+
+
+</menu>

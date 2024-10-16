@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".LogIn">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:layout_weight="0"
+        android:gravity="center">
+
+        <ImageView
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:layout_marginBottom="40dp"
+            android:src="@drawable/plant_container"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="27dp"
+            android:layout_marginRight="27dp"
+            android:layout_marginBottom="10dp"
+            android:fontFamily="@font/cairo"
+            android:text="Type System's IP (Internet Protocol)"
+            android:textSize="18dp">
+
+        </TextView>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/filledTextField"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Enter IP (Detector)"
+            android:layout_marginLeft="25dp"
+            android:layout_marginRight="25dp">
+
+            <!--this is the actual edit text which takes the input-->
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/ip_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="gone"/>
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/filledTextField2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:hint="Internet Protocol"
+            android:layout_marginLeft="25dp"
+            android:layout_marginRight="25dp">
+
+            <!--this is the actual edit text which takes the input-->
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/ip_text_system"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/cairo" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <Button
+            android:id="@+id/login_btn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="22dp"
+            android:layout_marginTop="18dp"
+            android:layout_marginRight="22dp"
+            android:height="60dp"
+            android:backgroundTint="@color/purple_700"
+            android:fontFamily="@font/cairo_semibold"
+            android:text="Login" />
+
+    </LinearLayout>
+
+</androidx.appcompat.widget.LinearLayoutCompat>
