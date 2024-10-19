@@ -1,4 +1,4 @@
-package com.armavi.plant;
+package com.armavi.plant_iot;
 
 import androidx.appcompat.app.AppCompatActivity;
 

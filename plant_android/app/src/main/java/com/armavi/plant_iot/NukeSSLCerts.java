@@ -1,4 +1,4 @@
-package com.armavi.plant;
+package com.armavi.plant_iot;
 
 import java.security.SecureRandom;
 import java.security.cert.X509Certificate;

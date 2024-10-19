@@ -4,15 +4,15 @@ plugins {
 }
 
 android {
-    namespace 'com.armavi.plant'
-    compileSdk 33
+    namespace 'com.armavi.plant_iot'
+    compileSdk 34
 
     defaultConfig {
-        applicationId "com.armavi.plant"
+        applicationId "com.armavi.plant_iot"
         minSdk 21
-        targetSdk 33
-        versionCode 1
-        versionName "1.0"
+        targetSdk 34
+        versionCode 2
+        versionName "1.0.1"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
