@@ -54,11 +54,20 @@ public class LogIn extends AppCompatActivity {
         loginBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 if(ipPattern.matcher(systemIptxt.getText().toString()).matches()){
                     ipSave();
                 }else {
                     Toast.makeText(getApplicationContext(), "Enter a Valid IP!", Toast.LENGTH_SHORT).show();
                 }
+
+                //Dummy server check
+//                if(systemIptxt.getText().toString()!=""){
+//                    ipSave();
+//                }else {
+//                    Toast.makeText(getApplicationContext(), "Enter a Valid IP!", Toast.LENGTH_SHORT).show();
+//                }
+
             }
         });
 
