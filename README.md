@@ -1,2 +1,144 @@
-# Plant-android-iot-plant-monitoring-system
-An IoT enabled and Android based Plant moisture monitoring system using ESP8266/32, Hygrometer
+# 🌱 Plant: Android & IoT Plant Monitoring System
+
+**Plant** is an open-source IoT solution for real-time monitoring of your plant’s soil moisture, temperature, and humidity. It features an ESP8266/NodeMCU microcontroller (Arduino IDE) and a companion Android app for live data, alarms, and easy configuration. All data stays local on your Wi-Fi—no cloud required.
+
+---
+
+## 📊 System Architecture
+
+![Plant IoT System Architecture](https://files.oaiusercontent.com/file-3b3cc20b-08bb-4c0a-b33d-e12ecb762837/0e839409-d2c7-40e6-9bde-2a21784b4e7b.png)
+
+---
+
+## ✨ Features
+
+- **Live Sensor Monitoring:**  
+  Real-time soil moisture, temperature, and humidity from your plant’s environment.
+- **Customizable Alerts:**  
+  Set a soil moisture threshold and get notified with a sound and warning if the plant is dry.
+- **Visual Dashboard:**  
+  The Android app shows live readings with color-coded status, progress bars, and warning messages.
+- **LCD Status Display:**  
+  NodeMCU’s LCD shows the device’s IP and connection status.
+- **Simple Wi-Fi Only:**  
+  Runs fully on your own Wi-Fi, no cloud/internet dependency.
+- **Easy Installation & Use:**  
+  Minimal hardware, clear app, no coding experience needed.
+
+---
+
+## 🛠️ Hardware Requirements
+
+- NodeMCU (ESP8266) board
+- Analog Soil Moisture Sensor
+- DHT11 Sensor (Humidity & Temperature)
+- I2C 16x2 LCD Display (default I2C address 0x3F)
+- Android smartphone (Android 5.0+ recommended)
+- Breadboard, jumper wires, USB cable
+
+---
+
+## 🔌 Circuit Diagram
+
+**Wiring Table:**
+
+| Component         | NodeMCU Pin | Note               |
+|-------------------|-------------|--------------------|
+| DHT11 Data        | D3          | Digital GPIO       |
+| Soil Moisture Out | A0          | Analog input       |
+| LCD SDA           | D1          | I2C Data           |
+| LCD SCL           | D2          | I2C Clock          |
+| LCD VCC           | 5V          | Or 3.3V per module |
+| LCD GND           | GND         |                    |
+| DHT11 VCC         | 3.3V/5V     | Per module         |
+| DHT11 GND         | GND         |                    |
+| Soil Sensor VCC   | 3.3V/5V     | Per sensor         |
+| Soil Sensor GND   | GND         |                    |
+
+---
+
+## 🖼️ System Workflow
+
+- The **NodeMCU** reads data from the DHT11 and soil moisture sensor.
+- Data is shown on the LCD display for local status.
+- NodeMCU runs a simple **HTTP server** (port 80) returning JSON-formatted sensor data.
+- The **Android app** fetches data every 2 seconds from NodeMCU using its IP address.
+- App visualizes plant health, provides warnings, and sounds an alarm if needed.
+
+---
+
+## 🧑‍💻 Software Components
+
+### 1. NodeMCU (ESP8266) Firmware
+
+- Developed in Arduino IDE.
+- Handles Wi-Fi connection and local server.
+- Sensor reading, LCD update, and JSON data output.
+
+**Key Libraries:**
+- [ESP8266WiFi](https://github.com/esp8266/Arduino)
+- [ArduinoJson](https://github.com/bblanchon/ArduinoJson)
+- [Adafruit DHT sensor library](https://github.com/adafruit/DHT-sensor-library)
+- [LiquidCrystal_I2C](https://github.com/johnrickman/LiquidCrystal_I2C)
+
+## 🚀 Getting Started
+
+### 1. Flash NodeMCU (ESP8266)
+
+- Connect NodeMCU to your PC via USB.
+- Open the Arduino IDE.
+- Install required libraries and select the correct board.
+- Upload the provided Arduino code.
+- Open the Serial Monitor (baud rate: 115200) or check the LCD for the device’s IP address.
+
+### 2. Setup Hardware
+
+- Wire up all sensors and the LCD as described in the wiring table above.
+- Insert the sensors into your plant pot.
+
+### 3. Build or Install Android App
+
+- Clone or download the Android source code.
+- Open the project in Android Studio.
+- Build and run the app on your Android device, or install the provided APK.
+- Open the app, go to **Settings**, and enter your NodeMCU’s local IP address.
+- Set your desired soil moisture alarm threshold.
+
+---
+
+## 🖥️ Usage
+
+1. Power on NodeMCU with sensors placed in the soil.
+2. Wait for Wi-Fi connection. The LCD will display the IP address.
+3. Start the Android app and connect using the NodeMCU’s IP.
+4. View real-time plant health status on your phone.
+5. If the soil moisture is below your threshold, you’ll see a warning and hear an alarm.
+
+---
+
+## 📱 Android App Screenshots
+
+> Add screenshots here by uploading your images and referencing them with Markdown.
+>
+> Example:
+> 
+> ![Dashboard](screenshot_dashboard.png)
+> ![Alarm Example](screenshot_alarm.png)
+
+---
+
+## 🌐 API Details
+
+- **Endpoint:** `GET http://<NodeMCU_IP>/`
+- **Method:** `GET`
+- **Returns:** JSON with `moisture_percentage`, `humidity`, `temperature`
+
+**Example response:**
+```json
+{
+  "moisture_percentage": "37",
+  "humidity": "85",
+  "temperature": "25"
+}
+
+
