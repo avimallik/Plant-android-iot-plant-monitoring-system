@@ -6,8 +6,7 @@
 
 ## 📊 System Architecture
 
-![Plant IoT System Architecture](https://files.oaiusercontent.com/file-3b3cc20b-08bb-4c0a-b33d-e12ecb762837/0e839409-d2c7-40e6-9bde-2a21784b4e7b.png)
-
+![Screenshot][(https://user-images.githubusercontent.com/123456/abcdefg-yourimage.png)](https://github-production-user-asset-6210df.s3.amazonaws.com/21225215/451221892-b37597d6-9e3a-4a69-9514-0f31c3170d7e.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAVCODYLSA53PQK4ZA%2F20250604%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20250604T062407Z&X-Amz-Expires=300&X-Amz-Signature=b8eb949e5c9b3857872ccb8330b174dc2e44f0d88288f291c5da21ad63a397d5&X-Amz-SignedHeaders=host)
 ---
 
 ## ✨ Features
