@@ -5,8 +5,7 @@
 ---
 
 ## 📊 System Architecture
-
-![Screenshot][(https://user-images.githubusercontent.com/123456/abcdefg-yourimage.png)](https://github-production-user-asset-6210df.s3.amazonaws.com/21225215/451221892-b37597d6-9e3a-4a69-9514-0f31c3170d7e.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAVCODYLSA53PQK4ZA%2F20250604%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20250604T062407Z&X-Amz-Expires=300&X-Amz-Signature=b8eb949e5c9b3857872ccb8330b174dc2e44f0d88288f291c5da21ad63a397d5&X-Amz-SignedHeaders=host)
+![Dashboard](https://github.com/user-attachments/assets/9f4f8a88-eea9-4f0b-ad22-cd738a8738f2)
 ---
 
 ## ✨ Features
@@ -116,14 +115,7 @@
 ---
 
 ## 📱 Android App Screenshots
-
-> Add screenshots here by uploading your images and referencing them with Markdown.
->
-> Example:
-> 
-> ![Dashboard](screenshot_dashboard.png)
-> ![Alarm Example](screenshot_alarm.png)
-
+![Dashboard](https://github.com/user-attachments/assets/e2a0d51a-2b2d-4a66-bae2-c18faeadca7d)![Dashboard](https://github.com/user-attachments/assets/c4578d63-fbc8-4fff-8765-7cd817a82b9d)
 ---
 
 ## 🌐 API Details
