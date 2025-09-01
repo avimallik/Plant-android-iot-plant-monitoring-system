@@ -1,6 +1,6 @@
 # 🌱 Plant: Android & IoT Plant Monitoring System
 
-**Plant** Plant is an open-source IoT solution for real-time monitoring of soil moisture, temperature, and humidity in grass and turf management. It is built on an ESP8266/NodeMCU microcontroller (Arduino IDE) with a companion Android application that provides live data visualization, configurable alerts, and user-friendly controls. Using low-cost, power-efficient sensors (AHT-20 and BME680), the system achieved up to 25% water savings and reduced manual intervention by nearly 40%, while proving scalable for larger agricultural applications. This project was conducted by <b>Jaff Arena and Academy—Bangladesh’s Futsal Playground and BSD BD Ltd</b>, where this project deployed as an IoT-enabled grass or turf watering system. 
+**Plant** Plant is an open-source IoT solution for real-time monitoring of soil moisture, temperature, and humidity in grass and turf management. It is built on an ESP8266/NodeMCU microcontroller (Arduino IDE) with a companion Android application that provides live data visualization, configurable alerts, and user-friendly controls. Using low-cost, power-efficient sensors such as AHT-20 (Temperature and Humidity) and Analog Soil Moisture Sensor, the system achieved up to 25% water savings and reduced manual intervention by nearly 40%, while proving scalable for larger agricultural applications. This project was conducted by <b>Jaff Arena and Academy—Bangladesh’s Futsal Playground and BSD BD Ltd</b>, where this project deployed as an IoT-enabled grass or turf watering system. 
 
 ---
 
@@ -29,7 +29,7 @@
 
 - NodeMCU (ESP8266) board
 - Analog Soil Moisture Sensor
-- DHT11 Sensor (Humidity & Temperature)
+- AHT-20 Sensor (Humidity & Temperature)
 - I2C 16x2 LCD Display (default I2C address 0x3F)
 - Android smartphone (Android 5.0+ recommended)
 - Breadboard, jumper wires, USB cable
