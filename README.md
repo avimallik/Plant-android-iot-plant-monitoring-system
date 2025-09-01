@@ -42,7 +42,7 @@
 
 | Component         | NodeMCU Pin | Note               |
 |-------------------|-------------|--------------------|
-| DHT11 Data        | D3          | Digital GPIO       |
+| AHT-20 Data        | D3          | Digital GPIO       |
 | Soil Moisture Out | A0          | Analog input       |
 | LCD SDA           | D1          | I2C Data           |
 | LCD SCL           | D2          | I2C Clock          |
