@@ -1,0 +1,123 @@
+#include <BH1750.h>
+#include <ESP8266WiFi.h>
+#include <ESP8266WebServer.h>
+#include <DHT.h>
+#include <ArduinoJson.h>
+#include <Wire.h>
+
+// ---------- WiFi ----------
+const char* WIFI_SSID = "Avi";
+const char* WIFI_PASS = "oxyzen1234";
+
+// ---------- Pins & Sensors ----------
+#define DHTPIN   D5
+#define DHTTYPE  DHT11
+#define SOIL_PIN A0   // YL-69 analog to A0
+#define AMBIENT_SCL D1
+#define AMBIENT_SDA D2
+
+DHT dht(DHTPIN, DHTTYPE);
+BH1750 lightMeter;
+ESP8266WebServer server(80);
+
+// ---------- Read interval ----------
+const unsigned long READ_MS = 10UL * 1000UL;
+unsigned long lastRead = 0;
+
+// ---------- Moisture calibration (tune these to your probe) ----------
+int MOISTURE_AIR_RAW   = 800; // "dry" reading
+int MOISTURE_WATER_RAW = 300; // "wet" reading
+
+// ---------- Latest readings ----------
+int   soil_pct = 0;
+float temp_c   = NAN;
+float hum_pct  = NAN;
+float sunLightLux = NAN;
+
+// ---------- Helpers ----------
+int clampInt(int v, int lo, int hi){ return v<lo?lo:(v>hi?hi:v); }
+
+int soilRawToPct(int raw) {
+  if (MOISTURE_AIR_RAW == MOISTURE_WATER_RAW) return 0;
+  long pct = map(raw, MOISTURE_AIR_RAW, MOISTURE_WATER_RAW, 0, 100); // dry->0, wet->100
+  return clampInt((int)pct, 0, 100);
+}
+
+void readSensors() {
+  // Soil
+  int raw = analogRead(SOIL_PIN);
+  soil_pct = soilRawToPct(raw);
+
+  // DHT11
+  float t = dht.readTemperature();
+  float h = dht.readHumidity();
+  if (!isnan(t)) temp_c  = t;
+  if (!isnan(h)) hum_pct = h;
+
+  //Ambient sensor
+  float lux = lightMeter.readLightLevel();
+  if(!isnan(lux)) sunLightLux = lux;
+  
+}
+
+// ---------- HTTP Handlers ----------
+void handleRoot() {
+  server.send(200, "text/plain", "OK. Use /data for JSON.");
+}
+
+void handleData() {
+  StaticJsonDocument<384> doc;
+  JsonArray arr = doc.to<JsonArray>();
+  JsonObject o = arr.createNestedObject();
+
+  o["soil_moisture_pct"] = soil_pct;
+
+  if (isnan(temp_c)) o["temperature_c"] = nullptr;
+  else               o["temperature_c"] = temp_c;
+
+  if (isnan(hum_pct)) o["humidity_pct"] = nullptr;
+  else                o["humidity_pct"] = hum_pct;
+
+  if (isnan(sunLightLux)) o["sunlight_lux"] = nullptr;
+  else            o["sunlight_lux"] = sunLightLux;
+
+  // Optional: expose device IP (handy for server logging)
+  JsonObject dev = o.createNestedObject("device");
+  dev["ip"] = WiFi.localIP().toString();
+
+  String out;
+  server.sendHeader("Access-Control-Allow-Origin", "*");
+  serializeJson(arr, out);
+  server.send(200, "application/json", out);
+}
+
+// ---------- Setup/Loop ----------
+void setup() {
+  Serial.begin(115200);
+  delay(200);
+  Wire.begin();
+  lightMeter.begin();
+  dht.begin();
+
+  WiFi.mode(WIFI_STA);
+  WiFi.begin(WIFI_SSID, WIFI_PASS);
+  Serial.print("WiFi...");
+  while (WiFi.status() != WL_CONNECTED) { delay(500); Serial.print("."); }
+  Serial.println();
+  Serial.print("IP: "); Serial.println(WiFi.localIP());
+
+  server.on("/", handleRoot);
+  server.on("/data", HTTP_GET, handleData);
+  server.begin();
+  readSensors(); lastRead = millis();
+}
+
+void loop() {
+  server.handleClient();
+  unsigned long now = millis();
+  if (now - lastRead >= READ_MS) {
+    readSensors();
+    lastRead = now;
+    Serial.printf("[READ] soil=%d%% temp=%.1fC hum=%.1f%% sunLight=%.1f%%\n", soil_pct, temp_c, hum_pct, sunLightLux);
+  }
+}
