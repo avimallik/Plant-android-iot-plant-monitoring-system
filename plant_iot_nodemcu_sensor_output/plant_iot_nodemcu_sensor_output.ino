@@ -1,6 +1,8 @@
 #include <BH1750.h>
 #include <ESP8266WiFi.h>
 #include <ESP8266WebServer.h>
+#include <WiFiClientSecure.h>
+#include <ESP8266HTTPClient.h>
 #include <DHT.h>
 #include <ArduinoJson.h>
 #include <Wire.h>
@@ -8,6 +10,10 @@
 // ---------- WiFi ----------
 const char* WIFI_SSID = "Avi";
 const char* WIFI_PASS = "oxyzen1234";
+
+// -----------Latitude and Logitude-----
+const String LAT = "23.7702883";
+const String LONG = "90.3984476";
 
 // ---------- Pins & Sensors ----------
 #define DHTPIN   D5
@@ -32,7 +38,7 @@ int MOISTURE_WATER_RAW = 300; // "wet" reading
 int   soil_pct = 0;
 float temp_c   = NAN;
 float hum_pct  = NAN;
-float sunLightLux = NAN;
+//float sunLightLux = NAN;
 
 // ---------- Helpers ----------
 int clampInt(int v, int lo, int hi){ return v<lo?lo:(v>hi?hi:v); }
@@ -55,9 +61,8 @@ void readSensors() {
   if (!isnan(h)) hum_pct = h;
 
   //Ambient sensor
-  float lux = lightMeter.readLightLevel();
-  if(!isnan(lux)) sunLightLux = lux;
-  
+//  float lux = lightMeter.readLightLevel();
+//  if(!isnan(lux)) sunLightLux = lux;
 }
 
 // ---------- HTTP Handlers ----------
@@ -69,7 +74,7 @@ void handleData() {
   StaticJsonDocument<384> doc;
   JsonArray arr = doc.to<JsonArray>();
   JsonObject o = arr.createNestedObject();
-
+  
   o["soil_moisture_pct"] = soil_pct;
 
   if (isnan(temp_c)) o["temperature_c"] = nullptr;
@@ -78,8 +83,8 @@ void handleData() {
   if (isnan(hum_pct)) o["humidity_pct"] = nullptr;
   else                o["humidity_pct"] = hum_pct;
 
-  if (isnan(sunLightLux)) o["sunlight_lux"] = nullptr;
-  else            o["sunlight_lux"] = sunLightLux;
+//  if (isnan(sunLightLux)) o["sunlight_lux"] = nullptr;
+//  else            o["sunlight_lux"] = sunLightLux;
 
   // Optional: expose device IP (handy for server logging)
   JsonObject dev = o.createNestedObject("device");
@@ -91,10 +96,12 @@ void handleData() {
   server.send(200, "application/json", out);
 }
 
+
 // ---------- Setup/Loop ----------
 void setup() {
   Serial.begin(115200);
   delay(200);
+  
   Wire.begin();
   lightMeter.begin();
   dht.begin();
@@ -118,6 +125,6 @@ void loop() {
   if (now - lastRead >= READ_MS) {
     readSensors();
     lastRead = now;
-    Serial.printf("[READ] soil=%d%% temp=%.1fC hum=%.1f%% sunLight=%.1f%%\n", soil_pct, temp_c, hum_pct, sunLightLux);
+    Serial.printf("[READ] soil_moisture=%d%% temperature=%.1fC humidity=%.1f%% \n", soil_pct, temp_c, hum_pct);
   }
 }
